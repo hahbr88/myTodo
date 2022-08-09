@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useEffect } from "react";
 
 const Detail = () => {
+  
   const dispatch = useDispatch();
   const [Comment, setComment] = useState({
     userComment: "",
@@ -46,6 +47,7 @@ const Detail = () => {
             setComment("");
           }
           dispatch(sandComments({ Comment, userid ,id}));
+        
         }}
       >
         <input
