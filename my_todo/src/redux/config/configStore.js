@@ -1,11 +1,12 @@
 // redux/store.js
 import { configureStore } from "@reduxjs/toolkit";
-import HelloComment from "../modules/HelloComments";
+import HelloUserComment from "../modules/HelloUserComment";
 import HelloWorld from "../modules/HelloWorld";
+
 
 export default configureStore({
   reducer: {
-    users: HelloWorld,
-    comments : HelloComment
+    users : HelloWorld,
+    userComment : HelloUserComment,
   }
 });
