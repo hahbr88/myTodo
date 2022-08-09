@@ -7,15 +7,15 @@ export const fetchUser = createAsyncThunk("users/fetchUser", async () => {
     .get("http://localhost:3001/books")
     .then((res) => res.data)
     .catch((error) => error);
-
 });
+
 
 const HelloWorld = createSlice({
   name: "users",
   initialState: {
     users: [],
     loading: false,
-    error: ""
+    error: "" 
   },
   reducers: {},
   extraReducers: {
