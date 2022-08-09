@@ -37,6 +37,7 @@ const HelloUserComment = createSlice({
   reducers: {},
   extraReducers: {
     [getComments.fulfilled]: (state, action) => {
+      console.log(action)
       state.userComment = action.payload
     }
   },
