@@ -34,8 +34,10 @@ const WriteBook = () => {
 
   return (
     <>
-      <form>
-        <input type="text" placeholder="작성자" value={nickName} onChange={(e) => setNickName(e.target.value)}/>
+      <form onSubmit={onSubmitHandler}>
+        <input type="text" placeholder="작성자" value={nickName} onChange={(e) => {
+          console.log(e.target.value)
+          setNickName(e.target.value)}}/>
         <input type="text" placeholder="제목"  value={title} onChange={(e) => setTitle(e.target.value)}/>
         <input type="text" placeholder="내용" value={content} onChange={(e) => setContent(e.target.value)}/>
         <button>글쓰기</button>
