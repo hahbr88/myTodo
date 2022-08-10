@@ -9,7 +9,7 @@ const initialState = {
 
 export const __getBooks = createAsyncThunk("books/getBooks", async (payload, thunkAPI) => {
   try {
-    const data = await axios.get("http://localhost:3001/books");
+    const data = await axios.post("http://localhost:3001/books");
     console.log(data.data);
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
