@@ -1,21 +1,28 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { sandComments, getComments } from "../redux/modules/HelloUserComment";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  sandComments,
+  getComments,
+  deletComments,
+} from "../redux/modules/HelloUserComment";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect } from "react";
+import axios from "axios";
 
 const Detail = () => {
-  
-  const dispatch = useDispatch();
-  const [Comment, setComment] = useState({
+  const navigate = useNavigate()
+  const initalState = {
     userComment: "",
-  });
-  // console.log(Comment);
+  };
+
+  const dispatch = useDispatch();
+  const [Comment, setComment] = useState(initalState);
+
   useEffect(() => {
     dispatch(getComments());
-  }, [dispatch] );
+  }, [dispatch]);
 
   const { users, loading, error } = useSelector((state) => state.users);
   const getComment = useSelector((state) => state.userComment.userComment);
@@ -23,6 +30,12 @@ const Detail = () => {
   let { id } = useParams();
   let userid = uuidv4();
   let copy = users.find((x) => x.id === id);
+  let copyComment = getComment.filter((x) => x.postid === id);
+
+  const onClickDeleteButtonHandler = (id) => {
+    dispatch(deletComments(id));
+  };
+
   if (error) {
     return <p>새로고침 해주세요</p>;
   }
@@ -31,6 +44,16 @@ const Detail = () => {
     return <p>Loading</p>;
   }
 
+  const onsubmitHandler = (e) => {
+    e.preventDefault();
+    if (Comment === "") {
+      return false; // 아무것도 입력하지 않았을 때 dispatch 하지 않음
+    } else {
+      setComment(initalState);
+    }
+    dispatch(sandComments({ Comment, userid, id }));
+  };
+
   return (
     <div>
       <div>
@@ -38,20 +61,11 @@ const Detail = () => {
         <h4>제목:{copy.title}</h4>
         <h4>내용:{copy.comment}</h4>
       </div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          if (Comment === "") {
-            return false;
-          } else {
-            setComment("");
-          }
-          dispatch(sandComments({ Comment, userid ,id}));
-        
-        }}
-      >
+      <form onSubmit={onsubmitHandler}>
         <input
           type={"text"}
+          name="userComment"
+          value={Comment.userComment}
           placeholder="댓글"
           onChange={(event) => {
             const { value } = event.target;
@@ -60,15 +74,23 @@ const Detail = () => {
         ></input>
         <button type="submit">댓글 추가</button>
         <div>
-          {getComment?.length > 0 &&
-            getComment.map((userComment) => (
+          {copyComment?.length > 0 &&
+            copyComment.map((userComment) => (
               <div key={userComment.id}>
                 <p>댓글:{userComment.userComment}</p>
+                <button
+                  type="button"
+                  onClick={() => onClickDeleteButtonHandler(userComment.id)}
+                >
+                  삭제
+                </button>
               </div>
             ))}
         </div>
       </form>
-      <div></div>
+      <button onClick={() =>{
+        navigate("/Update/:id")
+      }}>수정하로가기</button>
     </div>
   );
 };

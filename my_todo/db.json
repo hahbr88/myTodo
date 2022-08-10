@@ -24,21 +24,5 @@
       "comment": "반갑"
     }
   ],
-  "userComment": [
-    {
-      "userComment": "asdasd",
-      "id": "345d3bf7-0abf-4f32-b531-e64206c0ea4a",
-      "postid": "1"
-    },
-    {
-      "userComment": "asdasd12321",
-      "id": "fdd9c749-4152-4097-9f91-103da7fd792a",
-      "postid": "1"
-    },
-    {
-      "userComment": "asdasd1232155",
-      "id": "0863bb4a-2187-484a-ad66-c5f5b47db668",
-      "postid": "1"
-    }
-  ]
+  "userComment": []
 }

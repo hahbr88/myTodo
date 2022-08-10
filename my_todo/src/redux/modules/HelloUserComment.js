@@ -7,8 +7,8 @@ export const sandComments = createAsyncThunk(
     const resdata = await axios
       .post("http://localhost:3001/userComment", {
         userComment: payload.Comment.userComment,
-        id : payload.userid,
-        postid : payload.id 
+        id: payload.userid,
+        postid: payload.id,
       })
       .then((res) => res.data)
       .catch((error) => error);
@@ -20,11 +20,22 @@ export const getComments = createAsyncThunk(
   "userComment/getComments",
   async (payload, thunkAPI) => {
     const resdata = await axios
-      .get("http://localhost:3001/userComment", {
-      })
+      .get("http://localhost:3001/userComment", {})
       .then((res) => res.data)
       .catch((error) => error);
     return thunkAPI.fulfillWithValue(resdata);
+  }
+);
+//서버 관련
+export const deletComments = createAsyncThunk(
+  "userComment/deletComments",
+  async ( id , thunkAPI) => {
+    const resdata = await axios
+    .delete(`http://localhost:3001/userComment/${id}`)
+      .then((res) => ({id}))
+      .catch((error) => error);
+    return thunkAPI.fulfillWithValue(resdata);
+    
   }
 );
 
@@ -32,14 +43,23 @@ const HelloUserComment = createSlice({
   name: "userComment",
   initialState: {
     userComment: [],
-
   },
   reducers: {},
+  //슬라이스를 건드림 extraReducers 영향이 있다
   extraReducers: {
     [getComments.fulfilled]: (state, action) => {
-      state.userComment = action.payload
-    }
+      state.userComment = action.payload;
+    },
+    [sandComments.fulfilled]: (state, action) => {
+      state.userComment = [...state.userComment,action.payload];
+    },
+    [deletComments.fulfilled]: (state, action) => {
+      state.userComment=state.userComment.filter((postid) => postid.id !== action.payload.id)
+      // state == initialState
+    },
   },
 });
 
 export default HelloUserComment.reducer;
+
+
