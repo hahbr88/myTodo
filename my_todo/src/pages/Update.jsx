@@ -1,43 +1,131 @@
-import React, { useState, useEffect } from "react";
-// import { useParams } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { clear, getUpdateThunk, updatedThunk } from "../redux/modules/editSlice";
+import Text from "../components/Text";
+import flex from "../lib/flex";
 
-// fetch는 서버에 네트워크 요청을 보내고 새로운 정보를 받아오는 일을 할 수 있다.
-// 사용자 정보 읽기, 전송
-// 서버에서 응답 헤더를 받자마자 fetch 호출 시 반환받은 promise가
-// 내장 클래스 Response의 인스턴스와 함께 이행 상태가 된다.
+const Todo = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-const Update = ({ match }) => {
-  const [data, setData] = useState(null);
-  // const dispatch = useDispatch();
-    console.log(data);
-  //async function 선언은 AsyncFunction객체를 반환하는 하나의 비동기 함수를 정의한다.
-  // 비동기 함수는 이벤트 루프를 통해 비동기적으로 작동하는 함수로,
-  // 암시적으로 Promise를 사용하여 결과를 반환한다.
-  // component가 렌더링 될 때마다 특정 작업(Sied effect)을 실행할 수 있도록 하는 리액트 Hook.
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [updated, setUpdated] = useState("");
+  const update = useSelector((state) => state);
+  console.log(update)
+
+
   useEffect(() => {
-    async function fetch() {
+    dispatch(getUpdateThunk(id));
+    return () => dispatch(clear());
+  }, [dispatch, id]);
 
-      //await fetchData(
-      await (
-        `${"http://localhost:3001/books"}?detail_id=${match.params.id}`
-      ).then((response) => {
-        setData(response.data);
-      });
+  useEffect(() => {
+    setUpdated(update.comment);
+  }, [update]);
+
+  const onSaveButtonHandler = (event) => {
+    event.preventDefault();
+    if (isEditMode.comment === "") {
+      alert("입력된 내용이 없습니다.");
+    } else{
+      dispatch(
+        updatedThunk({
+          ...update,
+          comment: updated,
+        })
+      );
+      setIsEditMode(true);
+      navigate("/Detail/:id");
     }
-    fetch();
-  }, []);
-
-  const onChange = (e) => {
-    setData({ [e.target.name]: e.target.value });
+    
   };
+
   return (
-    <div className="Update">
-      <form action="api/detail" method="post">
-        <button onClick="">수정완료</button>
-      </form>
-    </div>
+    <>
+        {!isEditMode && (
+          <StUpdateHeader>
+            <Text size="24">id: ({update?.id})</Text>
+            <Text
+              size="24"
+              onClick={() => {
+                navigate("/Detail/:id");
+              }}
+            >
+              상세페이지로
+            </Text>
+          </StUpdateHeader>
+        )}
+
+        <Text size="24">
+          {update?.title}
+        </Text>
+        <StContent>
+          {isEditMode ? (
+            <>
+              <Textarea
+                type="text"
+                name="comment"
+                rows="10"
+                maxLength={200}
+                value={updated}
+                onChange={(event) => {
+                  setUpdated(event.target.value);
+                }}
+              />
+            </>
+          ) : (
+            <Text size="18">{update?.comment}</Text>
+          )}
+          
+            {isEditMode ? (
+              <button size="large" onClick={onSaveButtonHandler}>
+                저장
+              </button>
+            ) : (
+              <button onClick={() => {
+                  setIsEditMode(true);
+                }}
+              >
+                수정
+              </button>
+            )}
+        </StContent>
+    </>
   );
 };
-//onChangeHandler
-export default Update;
+
+export default Todo;
+
+const StUpdateHeader = styled.div`
+  ${flex({
+    jusify: "space-between",
+  })}
+  div:nth-child(2) {
+    text-decoration: underline;
+    color: teal;
+    cursor: pointer;
+  }
+  margin-bottom: 32px;
+`;
+
+const StContent = styled.div`
+  ${flex({
+    direction: "column",
+    jusify: "space-between",
+  })}
+  margin-top: 50px;
+  min-height: 550px;
+  div {
+    line-height: 1.5;
+  }
+`;
+
+const Textarea = styled.textarea`
+  width: 100%;
+  border: 1px solid #eee;
+  padding: 12px;
+  font-size: 14px;
+`;
