@@ -1,46 +1,46 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const initialState = {
-  books: [],
-  isLoading: false,
-  error: null,
-};
-
-export const __getBooks = createAsyncThunk("books/getBooks", async (payload, thunkAPI) => {
+export const __postBooks = createAsyncThunk("books/postBooks", async (payload, thunkAPI) => {
   try {
-    const data = await axios.post("http://localhost:3001/books");
-    console.log(data.data);
-    return thunkAPI.fulfillWithValue(data.data);
+    const data = await axios
+      .post("http://localhost:3001/books", {
+        id: payload.userId,
+        name: payload.nickName.nickNames,
+        title: payload.title.titles,
+        content: payload.content.contents,
+      })
+      .then((res) => res.data);
+    return thunkAPI.fulfillWithValue(data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }
 });
 
-const inputBook = createSlice({
+export const __getBooks = createAsyncThunk("books/getBooks", async (payload, thunkAPI) => {
+  try {
+    const data = await axios.get("http://localhost:3001/books", {}).then((res) => res.data);
+    return thunkAPI.fulfillWithValue(data);
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+const inputSlice = createSlice({
   name: "books",
-  initialState,
-  reducers: {
-    addBook: (state, action) => {
-        console.log(state)
-        console.log(action)
-    }
+  initialState: {
+    books: [],
   },
+  reducers: {},
   extraReducers: {
-    [__getBooks.pending]: (state) => {
-      state.isLoading = true;
+    [__postBooks.fulfilled]: (state, action) => {
+      // console.log(action.payload)
+      state.books = [...state.books, action.payload];
     },
     [__getBooks.fulfilled]: (state, action) => {
-      state.isLoading = false;
       state.books = action.payload;
-    },
-    [__getBooks.rejected]: (state, action) => {
-      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
     },
   },
 });
 
-
-export const { addBook } = inputBook.actions;
-export default inputBook.reducer;
+export default inputSlice.reducer;
