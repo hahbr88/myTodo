@@ -42,5 +42,5 @@ const inputBook = createSlice({
 });
 
 
-export const {} = inputBook.actions;
+export const { addBook } = inputBook.actions;
 export default inputBook.reducer;
