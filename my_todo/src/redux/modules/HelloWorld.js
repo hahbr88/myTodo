@@ -55,7 +55,7 @@ const HelloWorld = createSlice({
     // },
     [patchUpdateThunk.fulfilled]: (state, action) => {
 
-      const data = state.users.find((postid) => postid.id == action.payload.id)
+      const data = state.users.find((postid) => postid.id === action.payload.id)
       data.content = action.payload.content 
 
     },
