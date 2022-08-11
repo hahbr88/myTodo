@@ -63,7 +63,7 @@ const Detail = () => {
       <div>
         <h4>이름:{copy.name}</h4>
         <h4>제목:{copy.title}</h4>
-        <h4>내용:{copy.comment}</h4>
+        <h4>내용:{copy.content}</h4>
       </div>
       <form onSubmit={onsubmitHandler}>
         <input

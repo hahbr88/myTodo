@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { fetchUser } from "../redux/modules/HelloWorld";
 
 const Main = () => {
   const dispatch = useDispatch();
   const { users, loading, error } = useSelector((state) => state.users);
   
+  const navigate = useNavigate()
 
   useEffect(() => {
 
@@ -32,15 +33,17 @@ const Main = () => {
             수정하로가기 이름:{user.name}
             </Link>
             <h4>
-              <Link to={`/Detail/${user.id}`}>제목:{user.title} </Link>
+            제목:{user.title}
             </h4>
             <h4>
-            내용:{user.comment}
+            내용:{user.content}
             </h4>
-
+            
           </div>
         ))}
-        
+      <button onClick={() =>{
+        navigate(`/WriteBook`)
+      }}>방명록</button>
     </div>
   );
 };

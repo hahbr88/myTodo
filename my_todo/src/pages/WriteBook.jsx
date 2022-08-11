@@ -3,19 +3,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { __postBooks, __getBooks } from "../redux/modules/inputSlice";
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const WriteBook = () => {
-  const [nickName, setNickName] = useState({
+  const nickInitalState = {
     nickNames: "",
-  });
-  const [title, setTitle] = useState({
+  };
+
+  const titleInitalState = {
     titles: "",
-  });
-  const [content, setContent] = useState({
+  }
+
+  const contentInitalState = {
     contents: "",
-  });
+  }
+  
+  const [nickName, setNickName] = useState(nickInitalState);
+  const [title, setTitle] = useState(titleInitalState);
+  const [content, setContent] = useState(contentInitalState);
+
 
   const userId = uuidv4();
 
@@ -23,10 +30,8 @@ const WriteBook = () => {
 
   const getbook = useSelector((state) => state.books.books);
 
-  console.log(getbook);
 
-  const { id } = useParams;
-  const navigate = useNavigate;
+  const { id } = useParams();
 
   console.log(id);
 
@@ -38,13 +43,13 @@ const WriteBook = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    if (title === "" && nickName === "" && content === "") {
+    if (title.titles === "" || nickName.nickNames === "" || content.contents === "") {
       return false;
     } // 셋 중 하나라도 입력하지 않았을 때 dispatch 하지 않음
     else {
-      setNickName("");
-      setTitle("");
-      setContent("");
+      setNickName(nickInitalState);
+      setTitle(titleInitalState);
+      setContent(contentInitalState);
     }
     dispatch(__postBooks({ nickName, title, content, userId }));
   };
@@ -75,7 +80,7 @@ const WriteBook = () => {
         <input
           type="text"
           name="contents"
-          placeholder="제목"
+          placeholder="내용"
           value={content.contents}
           onChange={(e) => {
             const { value } = e.target;

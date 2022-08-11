@@ -4,32 +4,32 @@
       "id": "1",
       "name": "하병노",
       "title": "하하하",
-      "comment": "ㄹㄴㅇㄴㅇ"
+      "content": "반갑습니다"
     },
     {
       "id": "2",
       "name": "서동욱",
       "title": "하하하",
-      "comment": "반갑습니다"
+      "content": "반갑습니다"
     },
     {
       "id": "3",
       "name": "김범수",
       "title": "하하하",
-      "comment": "반갑습니다"
+      "content": "반갑습니다"
     },
     {
       "id": "4",
       "name": "아무나",
       "title": "하",
-      "comment": "반갑"
-    },
-    {
-      "id": "ee085153-8e68-41d8-a753-6c72cba383f9",
-      "name": "h",
-      "title": "h",
-      "content": "h"
+      "content": "반갑"
     }
   ],
-  "userComment": []
+  "userComment": [
+    {
+      "userComment": "asddasasdads",
+      "id": "bb0194f1-fd18-42be-9770-503ba986f102",
+      "postid": "1"
+    }
+  ]
 }
