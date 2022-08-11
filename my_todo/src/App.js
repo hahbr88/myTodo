@@ -11,9 +11,10 @@ const App = () => {
       <Route path="/" exact="true" element={<Main />}></Route>
       <Route path="/Detail/:id" element={<Detail />}></Route>
       <Route path="/WriteBook" element={<WriteBook />}></Route>
-      <Route path="/Update/:data" element={<Update />}></Route>
+      <Route path="/Update/:id" element={<Update />}></Route>
     </Routes>
   );
 };
 
 export default App;
+

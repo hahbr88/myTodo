@@ -10,7 +10,6 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { useEffect } from "react";
 
-
 const Detail = () => {
   const navigate = useNavigate()
   const initalState = {
