@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchUser } from "../redux/modules/HelloWorld";
 import "./Home.css";
-import "./Profile.css";
-import "./First.css"
+import "./Mini.css";
 import { BookCover } from "../components/BookCover";
 import { BookDot } from "../components/BookDot";
 import { Page } from "../components/Page";
@@ -30,11 +29,8 @@ import { Column5 } from "../components/Column5";
 import { MenuBar } from "../components/MenuBar";
 import { Text2Box } from "../components/Text2Box";
 import { Text3Box } from "../components/Text3Box";
-import { First } from "../components/First";
-import { Second } from "../components/Second";
 import mini from "./mini.png";
 import profile from "./profile.png";
-
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -49,27 +45,7 @@ const Main = () => {
   return (
     <div>
       {loading ? (
-        <>
-          {users?.length > 0 &&
-            users.map((user) => (
-              <div key={user.id}>
-                <h4>이름:{user.name}</h4>
-                <h4>제목:{user.title}</h4>
-                <h4>내용:{user.content}</h4>
-              </div>
-            ))}
-          <button
-            onClick={() => {
-              navigate(`/WriteBook`);
-            }}
-          >
-            방명록
-          </button>
-        </>
-      ) : (
-        <div>Loading...</div>
-      )}
-      <BookCover>
+        <BookCover>
         <BookDot>
           <Page>
             <Column1>
@@ -77,9 +53,7 @@ const Main = () => {
               <Row2>
                 <Text1>
                   <Text2Box>
-                    {/* <First> */}
-                    <img src={profile} alt="profile" />
-                    {/* </First> */}
+                    <img className="imgProfile" src={profile} alt="profile" />
                   </Text2Box>
                 </Text1>
                 <Text2>Øl유없Øl Ŀl㈎ 참 좋㈕</Text2>
@@ -87,7 +61,7 @@ const Main = () => {
             </Column1>
             <Column2>
               <Row3>
-                <Column3>HelloWorld!! 미니홈피</Column3>
+                <Column3>Hi-World! 미니홈피</Column3>
                 <Column4>
                   B반 6조 하병노/서동욱/신범수&nbsp;&nbsp;&nbsp;&nbsp;
                 </Column4>
@@ -115,9 +89,7 @@ const Main = () => {
               <Row4>
                 <Update1>
                   <Text3Box>
-                    <Second>
-                      <img src={mini} alt="mini" />
-                    </Second>
+                    <img className="imgMini" src={mini} alt="mini" />
                   </Text3Box>
                 </Update1>
               </Row4>
@@ -143,6 +115,10 @@ const Main = () => {
           </Page>
         </BookDot>
       </BookCover>
+      ) : (
+        <div>Loading...</div>
+      )}
+      
     </div>
   );
 };

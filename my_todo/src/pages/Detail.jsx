@@ -85,12 +85,12 @@ const Detail = () => {
           <Column1>
             <Row1>TODAY 2022.08.11</Row1>
             <Row2>
-              <Text1>
-                <Text2Box>
-                  <img src={profile} alt="profile" />
-                </Text2Box>
-              </Text1>
-              <Text2>Øl유없Øl Ŀl㈎ 참 좋㈕</Text2>
+            <Text1>
+                  <Text2Box>
+                    <img className="imgProfile" src={profile} alt="profile" />
+                  </Text2Box>
+                </Text1>
+                <Text2>Øl유없Øl Ŀl㈎ 참 좋㈕</Text2>
             </Row2>
           </Column1>
           <Column2>
