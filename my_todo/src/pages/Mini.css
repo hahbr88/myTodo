@@ -1,7 +1,15 @@
-.mini {
-    height: 400px;
-    width: 300px;
-    margin-left:-10px;
-    margin-top: 20px;
-    border-radius: 9px;
+.imgMini {
+  width: 530px;
+  height: 220px;
+  border-radius: 9px;
+  margin-top: -15px;
+  margin-left: -15px;
+}
+
+.imgProfile {
+  width: 200px;
+  height: 320px;
+  margin-top: 10px;
+  margin-left: -10px;
+  border-radius: 9px;
 }
