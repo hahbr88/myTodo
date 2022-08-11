@@ -7,22 +7,22 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const WriteBook = () => {
+  const { users, loading, error } = useSelector((state) => state.users);
   const nickInitalState = {
     nickNames: "",
   };
 
   const titleInitalState = {
     titles: "",
-  }
+  };
 
   const contentInitalState = {
     contents: "",
-  }
-  
+  };
+
   const [nickName, setNickName] = useState(nickInitalState);
   const [title, setTitle] = useState(titleInitalState);
   const [content, setContent] = useState(contentInitalState);
-
 
   const userId = uuidv4();
 
@@ -30,10 +30,8 @@ const WriteBook = () => {
 
   const getbook = useSelector((state) => state.books.books);
 
-
   const { id } = useParams();
 
-  console.log(id);
 
   // const nowDT = new Date().toLocaleString();
 
@@ -43,7 +41,11 @@ const WriteBook = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    if (title.titles === "" || nickName.nickNames === "" || content.contents === "") {
+    if (
+      title.titles === "" ||
+      nickName.nickNames === "" ||
+      content.contents === ""
+    ) {
       return false;
     } // 셋 중 하나라도 입력하지 않았을 때 dispatch 하지 않음
     else {
@@ -102,7 +104,6 @@ const WriteBook = () => {
     </>
   );
 };
-
 
 // const InputComponent = ({}) => {
 

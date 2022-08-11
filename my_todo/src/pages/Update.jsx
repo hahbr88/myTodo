@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { patchUpdateThunk } from "../redux/modules/editSlice";
 import { useNavigate } from "react-router-dom";
 import { BookCover } from "../components/BookCover";
 import { BookDot } from "../components/BookDot";
@@ -11,31 +10,27 @@ import { Column2 } from "../components/Column2";
 import { Row1 } from "../components/Row1";
 import { Row2 } from "../components/Row2";
 import { Row3 } from "../components/Row3";
+import { Row4 } from "../components/Row4";
 import { Column3 } from "../components/Column3";
 import { Column4 } from "../components/Column4";
-import { Row4 } from "../components/Row4";
 import { Text1 } from "../components/Text1";
 import { Text2 } from "../components/Text2";
 import { Update1 } from "../components/Update1";
-import { Column6 } from "../components/Column6";
-import { Row5 } from "../components/Row5";
-import { Red } from "../components/Red";
-import { Blue } from "../components/Blue";
-import { Row6 } from "../components/Row6";
-import { Cate } from "../components/Cate";
-import { Line } from "../components/Line";
-import { Dot } from "../components/Dot";
 import { Column5 } from "../components/Column5";
 import { Column7 } from "../components/Column7";
 import { Background } from "../components/Background";
+import { patchUpdateThunk } from "../redux/modules/HelloWorld";
 
 //처음 마운트될 때 Update 읽기 API 요청
 const Update = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { users } = useSelector((state) => state.users);
+  
+  let copy = users.find((x) => x.id === id);
 
-  // console.log(id);
+ 
   const initalState = {
     updateComment: "",
   };
@@ -43,7 +38,7 @@ const Update = () => {
   // const [isEdit, setIsEdit] = useState(false);
   const [updated, setUpdated] = useState(initalState);
 
-  // console.log(updated);
+
 
   const updateSubmit = (event) => {
     event.preventDefault();
@@ -57,6 +52,8 @@ const Update = () => {
     // setIsEdit(true);
     // navigate("/Detail/:id");
   };
+
+
 
   return (
     <Background>
@@ -77,34 +74,14 @@ const Update = () => {
                   B반 6조 하병노/서동욱/신범수&nbsp;&nbsp;&nbsp;&nbsp;
                 </Column4>
               </Row3>
-              <Row4>
-                <Update1>
-                  <Cate>
-                    방명록<Line></Line>
-                  </Cate>
-                  <Column6>
-                    <Row5>
-                      <Red>하병노</Red> 반갑습니다
-                      <Blue>서동욱</Blue> 반가워요
-                      <Red>신범수</Red> 반갑습니다
-                    </Row5>
-                    <Row6>
-                      방명록: 3/25
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상세페이지:3/25
-                      <Dot></Dot>
-                      게시판: 0/25
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;방명록:0/25
-                      <Dot></Dot>
-                    </Row6>
-                  </Column6>
-                </Update1>
-              </Row4>
 
               <Update1>
+              <Row4>
+                <div>{copy.name}</div>
+                <div>{copy.title}</div>
+                <div>{copy.content}</div>
+                </Row4>
                 <Column7>
-                  <Cate>
-                    수정페이지<Line></Line>
-                  </Cate>
                   <form onSubmit={updateSubmit}>
                     <input
                       type="text"
@@ -116,24 +93,26 @@ const Update = () => {
                         setUpdated({ ...updated, updateComment: value });
                       }}
                     ></input>
-                    <button>수정완료</button>
+                    <button type="submit">수정</button>
                   </form>
                 </Column7>
               </Update1>
-              <div>
-                <button
-                  onClick={() => {
-                    navigate("/");
-                  }}
-                >
-                  뒤로가기
-                </button>
-              </div>
             </Column2>
             <Column5>
-              <button>홈으로</button>
-              <button>방명록</button>
-              <button>상세페이지</button>
+            <button
+                onClick={() => {
+                  navigate(`/`);
+                }}
+              >
+                홈
+              </button>
+              <button
+                onClick={() => {
+                  navigate("/WriteBook");
+                }}
+              >
+                방명록
+              </button>
             </Column5>
           </Page>
         </BookDot>
