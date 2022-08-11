@@ -16,9 +16,13 @@ import { Column4 } from "../components/Column4";
 import { Text1 } from "../components/Text1";
 import { Text2 } from "../components/Text2";
 import { Update1 } from "../components/Update1";
+import { Cate } from "../components/Cate";
 import { Column5 } from "../components/Column5";
 import { Column7 } from "../components/Column7";
-import { Background } from "../components/Background";
+import { MenuBar } from "../components/MenuBar";
+import styled from "styled-components";
+import profile from "./profile.png";
+import { Text2Box } from "../components/Text2Box";
 import { patchUpdateThunk } from "../redux/modules/HelloWorld";
 
 //처음 마운트될 때 Update 읽기 API 요청
@@ -27,18 +31,15 @@ const Update = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state.users);
-  
+
   let copy = users.find((x) => x.id === id);
 
- 
   const initalState = {
     updateComment: "",
   };
 
   // const [isEdit, setIsEdit] = useState(false);
   const [updated, setUpdated] = useState(initalState);
-
-
 
   const updateSubmit = (event) => {
     event.preventDefault();
@@ -53,18 +54,21 @@ const Update = () => {
     // navigate("/Detail/:id");
   };
 
-
-
   return (
-    <Background>
+    <div className="background">
       <BookCover>
         <BookDot>
           <Page>
             <Column1>
               <Row1>TODAY 2022.08.11</Row1>
               <Row2>
-                <Text1>사진 넣기</Text1>
-                <Text2>리액트 B반 6조</Text2>
+                <Row2Box />
+                <Text1>
+                  <Text2Box>
+                    <img src={profile} alt="profile" />
+                  </Text2Box>
+                </Text1>
+                <Text2>Øl유없Øl Ŀl㈎ 참 좋㈕</Text2>
               </Row2>
             </Column1>
             <Column2>
@@ -74,12 +78,12 @@ const Update = () => {
                   B반 6조 하병노/서동욱/신범수&nbsp;&nbsp;&nbsp;&nbsp;
                 </Column4>
               </Row3>
-
               <Update1>
-              <Row4>
-                <div>{copy.name}</div>
-                <div>{copy.title}</div>
-                <div>{copy.content}</div>
+                <Cate>Comment</Cate>
+                <Row4>
+                  <div>{copy.name}</div>
+                  <div>{copy.title}</div>
+                  <div>{copy.content}</div>
                 </Row4>
                 <Column7>
                   <form onSubmit={updateSubmit}>
@@ -99,26 +103,31 @@ const Update = () => {
               </Update1>
             </Column2>
             <Column5>
-            <button
+              <MenuBar
                 onClick={() => {
                   navigate(`/`);
                 }}
               >
-                홈
-              </button>
-              <button
+                홈으로
+              </MenuBar>
+              <MenuBar
+                button
                 onClick={() => {
-                  navigate("/WriteBook");
+                  navigate(`/WriteBook`);
                 }}
               >
                 방명록
-              </button>
+              </MenuBar>
             </Column5>
           </Page>
         </BookDot>
       </BookCover>
-    </Background>
+    </div>
   );
 };
 
 export default Update;
+
+const Row2Box = styled.div`
+  background-image: url(./profile.png);
+`;

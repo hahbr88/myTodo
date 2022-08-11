@@ -6,4 +6,5 @@ export const Column7 = styled.div`
   margin-top: 15px;
   margin-bottom: 15px;
   margin-left: 1px;
+  border-radius: 9px;
 `;
