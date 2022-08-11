@@ -29,9 +29,9 @@ const Main = () => {
       {users?.length > 0 &&
         users.map((user) => (
           <div key={user.id}>
-            <h4>
-            이름:{user.name}
-            </h4>
+            <Link to={`/Update/${user.id}`}>
+            수정하로가기 이름:{user.name}
+            </Link>
             <h4>
             제목:{user.title}
             </h4>

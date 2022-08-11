@@ -8,8 +8,8 @@ import editSlice from "../modules/editSlice";
 export default configureStore({
   reducer: {
     users: HelloWorld,
-    userComment : HelloUserComment,
-    books : inputSlice,
-    editSlice,
-  }
+    userComment: HelloUserComment,
+    books: inputSlice,
+    update: editSlice,
+  },
 });
