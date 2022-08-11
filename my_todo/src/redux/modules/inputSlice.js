@@ -34,7 +34,7 @@ const inputSlice = createSlice({
   reducers: {},
   extraReducers: {
     [__postBooks.fulfilled]: (state, action) => {
-      // console.log(action.payload)
+      console.log(action.payload)
       state.books = [...state.books, action.payload];
     },
     [__getBooks.fulfilled]: (state, action) => {
