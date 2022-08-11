@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const Cate = styled.div`
-  font-family: "KOTRA_BOLD-Bold";
-  color: rgb(66, 162, 215);
+    color: steelblue;
+    font-family: 'PT Sans', sans-serif;  
+    border-bottom: 2px solid silver;
+    margin-right: 20px;
+    margin-left: 20px;
 `;

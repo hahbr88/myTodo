@@ -17,17 +17,13 @@ import { Row4 } from "../components/Row4";
 import { Text1 } from "../components/Text1";
 import { Text2 } from "../components/Text2";
 import { Update1 } from "../components/Update1";
-import { Column6 } from "../components/Column6";
-import { Row5 } from "../components/Row5";
-import { Red } from "../components/Red";
-import { Blue } from "../components/Blue";
-import { Row6 } from "../components/Row6";
 import { Cate } from "../components/Cate";
-import { Line } from "../components/Line";
-import { Dot } from "../components/Dot";
 import { Column5 } from "../components/Column5";
 import { Column7 } from "../components/Column7";
-import { Background } from "../components/Background";
+import { MenuBar } from "../components/MenuBar";
+import styled from "styled-components";
+import profile from "./profile.png";
+import { Text2Box } from "../components/Text2Box";
 
 //처음 마운트될 때 Update 읽기 API 요청
 const Update = () => {
@@ -59,15 +55,22 @@ const Update = () => {
   };
 
   return (
-    <Background>
+    <div className="background">
       <BookCover>
         <BookDot>
           <Page>
             <Column1>
               <Row1>TODAY 2022.08.11</Row1>
               <Row2>
-                <Text1>사진 넣기</Text1>
-                <Text2>리액트 B반 6조</Text2>
+                <Row2Box />
+                <Text1>
+                  <Text2Box>
+                    <img src={profile} alt="profile" />
+                  </Text2Box>
+                </Text1>
+                <Text2>
+                Øl유없Øl Ŀl㈎ 참 좋㈕
+                </Text2>
               </Row2>
             </Column1>
             <Column2>
@@ -78,48 +81,28 @@ const Update = () => {
                 </Column4>
               </Row3>
               <Row4>
+              id랑 title 오는 자리
+              </Row4>
+              <Row4>
                 <Update1>
-                  <Cate>
-                    방명록<Line></Line>
-                  </Cate>
-                  <Column6>
-                    <Row5>
-                      <Red>하병노</Red> 반갑습니다
-                      <Blue>서동욱</Blue> 반가워요
-                      <Red>신범수</Red> 반갑습니다
-                    </Row5>
-                    <Row6>
-                      방명록: 3/25
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상세페이지:3/25
-                      <Dot></Dot>
-                      게시판: 0/25
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;방명록:0/25
-                      <Dot></Dot>
-                    </Row6>
-                  </Column6>
+                  <Cate>Comment</Cate>
+                  <Column7>
+                    <form onSubmit={updateSubmit}>
+                      <input
+                        type="text"
+                        name="updateComment"
+                        placeholder="내용"
+                        value={updated.updateComment}
+                        onChange={(event) => {
+                          const { value } = event.target;
+                          setUpdated({ ...updated, updateComment: value });
+                        }}
+                      ></input>
+                      <button>수정완료</button>
+                    </form>
+                  </Column7>
                 </Update1>
               </Row4>
-
-              <Update1>
-                <Column7>
-                  <Cate>
-                    수정페이지<Line></Line>
-                  </Cate>
-                  <form onSubmit={updateSubmit}>
-                    <input
-                      type="text"
-                      name="updateComment"
-                      placeholder="내용"
-                      value={updated.updateComment}
-                      onChange={(event) => {
-                        const { value } = event.target;
-                        setUpdated({ ...updated, updateComment: value });
-                      }}
-                    ></input>
-                    <button>수정완료</button>
-                  </form>
-                </Column7>
-              </Update1>
               <div>
                 <button
                   onClick={() => {
@@ -131,15 +114,32 @@ const Update = () => {
               </div>
             </Column2>
             <Column5>
-              <button>홈으로</button>
-              <button>방명록</button>
-              <button>상세페이지</button>
+              <MenuBar
+                button
+                onClick={() => {
+                  navigate(`/`);
+                }}
+              >
+                홈으로
+              </MenuBar>
+              <MenuBar
+                button
+                onClick={() => {
+                  navigate(`/WriteBook`);
+                }}
+              >
+                방명록
+              </MenuBar>
             </Column5>
           </Page>
         </BookDot>
       </BookCover>
-    </Background>
+    </div>
   );
 };
 
 export default Update;
+
+const Row2Box = styled.div`
+  background-image: url(./profile.png);
+`;
