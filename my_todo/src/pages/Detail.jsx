@@ -9,7 +9,7 @@ import {
 } from "../redux/modules/HelloUserComment";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect } from "react";
-import axios from "axios";
+
 
 const Detail = () => {
   const navigate = useNavigate()
@@ -46,11 +46,16 @@ const Detail = () => {
 
   const onsubmitHandler = (e) => {
     e.preventDefault();
-    if (Comment === "") {
+    if (Comment.userComment === "") {
+      alert('내용을 입력해주세요')
       return false; // 아무것도 입력하지 않았을 때 dispatch 하지 않음
-    } else {
+    } else if(Comment.userComment.length < 9 || Comment.userComment.length > 21 ){
+      alert('10글자 이상 20글자 이하로 작성해주세요')
+      return false
+    } else{
       setComment(initalState);
     }
+
     dispatch(sandComments({ Comment, userid, id }));
   };
 
@@ -89,7 +94,7 @@ const Detail = () => {
         </div>
       </form>
       <button onClick={() =>{
-        navigate("/Update/:id")
+        navigate(`/Update/${id}`)
       }}>수정하로가기</button>
     </div>
   );
