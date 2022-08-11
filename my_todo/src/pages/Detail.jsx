@@ -9,7 +9,6 @@ import {
 } from "../redux/modules/HelloUserComment";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect } from "react";
-import axios from "axios";
 
 const Detail = () => {
   const navigate = useNavigate()

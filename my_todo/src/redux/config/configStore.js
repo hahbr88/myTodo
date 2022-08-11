@@ -10,6 +10,6 @@ export default configureStore({
     users: HelloWorld,
     userComment : HelloUserComment,
     inputSlice,
-    editSlice,
+    update : editSlice,
   }
 });
