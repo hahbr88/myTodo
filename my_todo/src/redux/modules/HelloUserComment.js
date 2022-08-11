@@ -1,11 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const URL = process.env.REACT_APP_USRL
+
 export const sandComments = createAsyncThunk(
   "userComment/sandComments",
   async (payload, thunkAPI) => {
     const resdata = await axios
-      .post("http://localhost:3001/userComment", {
+      .post( URL + "userComment", {
         userComment: payload.Comment.userComment,
         id: payload.userid,
         postid: payload.id,
@@ -20,7 +22,7 @@ export const getComments = createAsyncThunk(
   "userComment/getComments",
   async (payload, thunkAPI) => {
     const resdata = await axios
-      .get("http://localhost:3001/userComment", {})
+      .get (URL+"userComment", {})
       .then((res) => res.data)
       .catch((error) => error);
     return thunkAPI.fulfillWithValue(resdata);
@@ -31,7 +33,7 @@ export const deletComments = createAsyncThunk(
   "userComment/deletComments",
   async ( id , thunkAPI) => {
     const resdata = await axios
-    .delete(`http://localhost:3001/userComment/${id}`)
+    .delete( URL + `userComment/${id}`)
       .then((res) => ({id}))
       .catch((error) => error);
     return thunkAPI.fulfillWithValue(resdata);
