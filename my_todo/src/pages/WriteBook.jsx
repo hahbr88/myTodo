@@ -27,7 +27,7 @@ import { Text2Box } from "../components/Text2Box";
 import profile from "./profile.png";
 
 const WriteBook = () => {
-  const { users, loading, error } = useSelector((state) => state.users);
+
   const nickInitalState = {
     nickNames: "",
   };
