@@ -37,9 +37,10 @@ const Main = () => {
             <h4>
             내용:{user.comment}
             </h4>
-            
+
           </div>
         ))}
+        
     </div>
   );
 };
