@@ -9,7 +9,7 @@ export default configureStore({
   reducer: {
     users: HelloWorld,
     userComment : HelloUserComment,
-    inputSlice,
+    books : inputSlice,
     editSlice,
   }
 });
